@@ -1,1 +1,2 @@
 # SCPServer
+SCP Server is a PHP script used to interact with my SCP_Terminal client. This is not a project to host yourself, please DM me on Discord (Ichii#5999) if you wanna host your version of SCP Server and make your own SCP_Terminal client version.
