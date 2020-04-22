@@ -82,6 +82,7 @@ function endpoints($endpoint) {
                             return ["request" => "success", "report_data" => ["file_name" => URL . $row2["file"],"permission_level" => $row2["level"]], "server_version" => SERVER_VERSION];
                         }
                     }
+                    else return ["error" => 404, "err_message" => "Unknown Report", "server_version" => SERVER_VERSION];
                 }
             }
             else return ["error" => 403, "err_message" => "Access Forbidden: Unknown Token", "server_version" => SERVER_VERSION];
