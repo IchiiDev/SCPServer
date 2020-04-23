@@ -147,7 +147,7 @@ function endpoints($endpoint) {
             if ($result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
                     $row = $row["permission"];
-                    $result = $conn->query("SELECT `username`, `permission` FROM `users` WHERE `permission` <= $row");
+                    $result = $conn->query("SELECT `username`, `permission`, `full_name`, `rank` FROM `users` WHERE `permission` <= $row");
                     if ($result->num_rows > 0) {
                         $users_array = array();
                         while ($row = $result->fetch_assoc()) array_push($users_array, $row);
