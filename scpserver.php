@@ -109,6 +109,28 @@ function endpoints($endpoint) {
             }
             else return ["error" => 403, "err_message" => "Access Forbidden: Unknown Token", "server_version" => SERVER_VERSION];
         }
+        elseif ($endpoint == "list_users") {
+            $token = get_parameter("token");
+            if ($token == null) return ["error" => 400, "err_message" => "User token is not defined", "server_version" => SERVER_VERSION];
+
+            $conn = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
+            if ($conn->connect_error) return ["error" => 500, "err_message" => "Server Side Error: Database access forbidden", "server_version" => SERVER_VERSION];
+
+            $result = $conn->query("SELECT permission FROM users WHERE `token`=\"$token\"");
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                    $row = $row["permission"];
+                    $result = $conn->query("SELECT `username`, `permission` FROM `users` WHERE `permission` <= $row");
+                    if ($result->num_rows > 0) {
+                        $reports_array = array();
+                        while ($row = $result->fetch_assoc()) array_push($reports_array, $row);
+                        return ["request" => "success", "reports" => $reports_array, "server_version" => SERVER_VERSION];
+                    }
+                    else return ["error" => 404, "err_message" => "No such users to view", "server_version" => SERVER_VERSION];
+                }
+            }
+            else return ["error" => 403, "err_message" => "Access Forbidden: Unknown Token", "server_version" => SERVER_VERSION];
+        }
         elseif ($endpoint == null) return ["error" => 400, "err_message" => "No endpoint defined", "server_version" => SERVER_VERSION];
         else return ["error" => 404, "err_message" => "Unknown endpoint", "server_version" => SERVER_VERSION];
     }
