@@ -106,7 +106,7 @@ function endpoints($endpoint) {
                     if ($result->num_rows > 0) {
                         while ($row2 = $result->fetch_assoc()) {
                             if (!($row >= $row2["permission"])) return ["error" => 403, "err_message" => "Access Forbidden: Insufficient Permissions", "server_version" => SERVER_VERSION];
-                            return ["request" => "success", "report_data" => $row2, "server_version" => SERVER_VERSION];
+                            return ["request" => "success", "user_data" => $row2, "server_version" => SERVER_VERSION];
                         }
                     }
                     else return ["error" => 404, "err_message" => "Unknown User", "server_version" => SERVER_VERSION];
