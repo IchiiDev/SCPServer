@@ -27,10 +27,11 @@ define("REQUIRED_CLIENT", ["warn" => "SCPTerminal1.0-b-0", "required" => "SCPTer
     Functions   */
 
 function get_parameter($field) {
-  if (isset($_GET[$field]))
+  if (isset($_GET[$field])) {
+    if (sizeof($GET[$field]) > 150) die();
     return $_GET[$field];
-  else
-    return null;
+    }
+  else return null;
 }
 
 function endpoints($endpoint) {
