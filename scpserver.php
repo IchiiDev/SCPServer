@@ -122,9 +122,9 @@ function endpoints($endpoint) {
                     $row = $row["permission"];
                     $result = $conn->query("SELECT `username`, `permission` FROM `users` WHERE `permission` <= $row");
                     if ($result->num_rows > 0) {
-                        $reports_array = array();
-                        while ($row = $result->fetch_assoc()) array_push($reports_array, $row);
-                        return ["request" => "success", "reports" => $reports_array, "server_version" => SERVER_VERSION];
+                        $users_array = array();
+                        while ($row = $result->fetch_assoc()) array_push($users_array, $row);
+                        return ["request" => "success", "users" => $users_array, "server_version" => SERVER_VERSION];
                     }
                     else return ["error" => 404, "err_message" => "No such users to view", "server_version" => SERVER_VERSION];
                 }
